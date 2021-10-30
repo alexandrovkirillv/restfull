@@ -1,0 +1,7 @@
+DROP TABLE IF EXISTS REGION;
+
+CREATE TABLE REGION(
+    `id`          INTEGER PRIMARY KEY,
+    `name`       VARCHAR(100) NOT NULL,
+    `short_name`      VARCHAR(10) NOT NULL
+);
