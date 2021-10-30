@@ -1,4 +1,4 @@
-package com.example.demo.excpetions;
+package com.example.demo.exceptions;
 
 public class RegionNotFoundException extends RuntimeException {
     private long id;

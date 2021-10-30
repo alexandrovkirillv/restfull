@@ -1,17 +1,17 @@
-package com.example.demo.excpetions;
+package com.example.demo.exceptions;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.time.LocalDateTime;
 
-public class CustomResponse {
+public class JsonResponse {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd hh:mm:ss")
     private LocalDateTime timestamp;
     private int status;
     private String message;
 
-    public CustomResponse(LocalDateTime timestamp, int status, String message) {
-        this.timestamp = timestamp;
+    public JsonResponse(int status, String message) {
+        this.timestamp = LocalDateTime.now();
         this.status = status;
         this.message = message;
     }

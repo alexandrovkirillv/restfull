@@ -1,4 +1,4 @@
-package com.example.demo.excpetions;
+package com.example.demo.exceptions;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -10,14 +10,13 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import java.sql.SQLException;
-import java.time.LocalDateTime;
 
 @ControllerAdvice
 class ErrorHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(RegionNotFoundException.class)
-    public ResponseEntity<CustomResponse> customHandleNotFound(Exception ex, WebRequest request) {
-        CustomResponse error = new CustomResponse(LocalDateTime.now(), HttpStatus.NOT_FOUND.value(),
+    public ResponseEntity<JsonResponse> customHandleNotFound(Exception ex, WebRequest request) {
+        JsonResponse error = new JsonResponse(HttpStatus.NOT_FOUND.value(),
                 ex.getMessage());
         return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
     }
@@ -25,14 +24,14 @@ class ErrorHandler extends ResponseEntityExceptionHandler {
     @Override
     protected ResponseEntity<Object> handleHttpMessageNotReadable(HttpMessageNotReadableException ex, HttpHeaders headers,
                                                                   HttpStatus status, WebRequest request) {
-        CustomResponse error = new CustomResponse(LocalDateTime.now(), HttpStatus.BAD_REQUEST.value(),
+        JsonResponse error = new JsonResponse(HttpStatus.BAD_REQUEST.value(),
                 "Unsupported JSON request");
         return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(SQLException.class)
-    public ResponseEntity<CustomResponse> customHandleNotFound(Exception ex) {
-        CustomResponse error = new CustomResponse(LocalDateTime.now(), HttpStatus.INTERNAL_SERVER_ERROR.value(),
+    public ResponseEntity<JsonResponse> customHandleNotFound(Exception ex) {
+        JsonResponse error = new JsonResponse(HttpStatus.INTERNAL_SERVER_ERROR.value(),
                 HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase());
         return new ResponseEntity<>(error, HttpStatus.INTERNAL_SERVER_ERROR);
     }
